@@ -1,0 +1,20 @@
+:root {
+    --primary-color: #add8e6;
+    --dark-primary: #87ceeb;
+    --text-color: #333;
+    --bg-color: #fff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}

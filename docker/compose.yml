@@ -1,0 +1,61 @@
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  redis:
+    image: redis:7-alpine
+
+  django:
+    build:
+      context: ..
+      dockerfile: docker/django/Dockerfile
+    volumes:
+      - ..:/app
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env
+
+  celery_worker:
+    build:
+      context: ..
+      dockerfile: docker/django/Dockerfile
+    command: celery -A chota_config worker -l info
+    volumes:
+      - ..:/app
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - .env
+
+  celery_beat:
+    build:
+      context: ..
+      dockerfile: docker/django/Dockerfile
+    command: celery -A chota_config beat -l info
+    volumes:
+      - ..:/app
+    depends_on:
+      - redis
+      - db
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:1.25-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ..:/app
+    depends_on:
+      - django
+
+volumes:
+  postgres_data:

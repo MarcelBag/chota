@@ -1,0 +1,15 @@
+Django
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+django-filter
+django-extensions
+psycopg2-binary
+celery
+redis
+beautifulsoup4
+playwright
+openpyxl
+pandas
+python-dotenv
+django-environ
