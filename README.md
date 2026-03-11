@@ -2,6 +2,8 @@
 
 Chota is a powerful web data scraping platform inside the Tuunganes ecosystem, designed to collect and structure data from the web.
 
+**Meaning**: “Chota” in Swahili means to scoop or collect. The idea is that the platform scoops data from the web.
+
 ## Tech Stack
 - **Backend**: Python, Django, BeautifulSoup, Playwright
 - **Workers**: Celery, Redis
