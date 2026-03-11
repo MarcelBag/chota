@@ -14,7 +14,7 @@ ifneq ("$(wildcard .env.dev)","")
     COMPOSE_FILES += -f compose.dev.yml
 endif
 
-DC := cd $(DOCKER_DIR) && docker compose $(COMPOSE_FILES)
+DC := cd $(DOCKER_DIR) && docker compose -p chota $(COMPOSE_FILES)
 EX := $(DC) exec -T $(SERVICE) bash -lc
 
 .PHONY: dev prod i18n i18n-clean fix-line-endings quick-nl-pass fix-po \
@@ -25,17 +25,20 @@ EX := $(DC) exec -T $(SERVICE) bash -lc
 # Environments
 # ----------------------------
 dev:
+	cd $(DOCKER_DIR) && ln -sf ../.env.dev .env
 	cd $(DOCKER_DIR) && docker compose -f compose.yml -f compose.dev.yml down
-	cd $(DOCKER_DIR) && ln -sf ../.env.dev .env && docker compose -f compose.yml -f compose.dev.yml up -d --build
+	cd $(DOCKER_DIR) && docker compose -f compose.yml -f compose.dev.yml up -d --build
 
 dev-reset:
+	cd $(DOCKER_DIR) && ln -sf ../.env.dev .env
 	cd $(DOCKER_DIR) && docker compose -f compose.yml -f compose.dev.yml down
-	cd $(DOCKER_DIR) && ln -sf ../.env.dev .env && docker compose -f compose.yml -f compose.dev.yml build --no-cache
+	cd $(DOCKER_DIR) && docker compose -f compose.yml -f compose.dev.yml build --no-cache
 	cd $(DOCKER_DIR) && docker compose -f compose.yml -f compose.dev.yml up -d
 
 prod:
+	cd $(DOCKER_DIR) && ln -sf ../.env.prod .env
 	cd $(DOCKER_DIR) && docker compose -f compose.yml down
-	cd $(DOCKER_DIR) && ln -sf ../.env.prod .env && docker compose -f compose.yml up -d --build
+	cd $(DOCKER_DIR) && docker compose -f compose.yml up -d --build
 
 # ----------------------------
 # Local Development (Non-Docker)

@@ -2,10 +2,10 @@ services:
   django:
     command: python backend/manage.py runserver 0.0.0.0:8000
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - DEBUG=1
 
   db:
     ports:
-      - "5432:5432"
+      - "5433:5432"

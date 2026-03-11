@@ -22,9 +22,4 @@ Chota/
 └── scraping_engines/   # Core scraping logic
 ```
 
-## Branding
-- **Company Color**: Light Blue
-- **Logo**: `tuungane.jpeg`
 
-## Tagline
-Chota — Scoop data from the web.
